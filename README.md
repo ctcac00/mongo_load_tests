@@ -27,6 +27,14 @@ terraform init
 terraform apply
 ```
 
+---
+
+## NOTE
+
+Make sure you have exported your AWS public and private keys before you attempt to run terraform!
+
+---
+
 ## Running Load Tests
 
 Capture the AWS EC2 public dns names from the AWS terraform output variables and replace them in the shell scripts - both the [run_locust.sh](run_locust.sh) and the [kill_locust.sh](kill_locust.sh) (it should be a space separated list of dns names).
@@ -38,14 +46,6 @@ Call the [run_locust.sh](run_locust.sh) to launch the test:
 ```bash
 ./run_locust.sh
 ```
-
----
-
-## NOTE
-
-Make sure you have exported your AWS public and private keys before you attempt to run terraform!
-
----
 
 ## Stop Load Tests
 
