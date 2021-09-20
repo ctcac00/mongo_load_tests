@@ -1,13 +1,7 @@
 #!/bin/bash
 
-# MongoDB URI
-MONGO_URI="mongodb+srv//somecluster.abcdef.mongodb.net/sample"
-
 # List of EC2 hosts
-declare -a hostList=(   "dns-name-1"
-  "dns-name-2"
-  "dns-name-3"
-  "dns-name-n" )
+declare -a hostList=$( cd terraform/aws && terraform output loadtest-demo_public_dns | sed -r 's/[][,]//g' )
 
 for host in ${hostList[@]}; do
 

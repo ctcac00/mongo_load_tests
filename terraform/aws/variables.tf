@@ -29,3 +29,11 @@ variable "key_name" {
 variable "subnet_id" {
   description = "The AWS subnet id"
 }
+
+variable "instances" {
+  description = "A list of AWS instances to create - master and workers"
+}
+
+variable "instance_type" {
+  description = "The EC2 instance type to use"
+}

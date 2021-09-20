@@ -37,8 +37,7 @@ Make sure you have exported your AWS public and private keys before you attempt 
 
 ## Running Load Tests
 
-Capture the AWS EC2 public dns names from the AWS terraform output variables and replace them in the shell scripts - both the [run_locust.sh](run_locust.sh) and the [kill_locust.sh](kill_locust.sh) (it should be a space separated list of dns names).
-Capture the MongoDB URI from the Atlas terraform output and replace it in the same files.
+Capture the MongoDB URI from the Atlas terraform output and replace it in the same files - remember to add the username/password.
 Replace the ssh key file in those files as well.
 
 Call the [run_locust.sh](run_locust.sh) to launch the test:

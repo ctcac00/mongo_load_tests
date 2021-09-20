@@ -64,6 +64,13 @@ module "security_group" {
   description = "Security group for locust"
   vpc_id      = var.vpc_id
 
+  ingress_with_self = [ {
+      from_port        = 0
+      to_port          = 0
+      protocol         = "-1"
+      description      = "internal communication"
+  } ]
+
   ingress_with_cidr_blocks = [
     {
       from_port   = 8089
@@ -79,16 +86,8 @@ module "security_group" {
       description = "ssh port"
       cidr_blocks = var.public_ip
     },
-    {
-      from_port        = 0
-      to_port          = 0
-      protocol         = "-1"
-      description      = "internal communication"
-      cidr_blocks      = ["10.10.0.0/16"]
-    }
   ]
   egress_rules        = ["all-all"]
-
   tags = local.tags
 }
 
@@ -96,12 +95,12 @@ module "loadtest-demo" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
 
-  for_each = toset(["loadtest-demo-primary", "loadtest-demo-worker-1", "loadtest-demo-worker-2", "loadtest-demo-worker-3"])
+  for_each = toset(var.instances)
 
   name = "${each.key}"
 
   ami                    = data.aws_ami.ubuntu.id
-  instance_type          = "t3.2xlarge"
+  instance_type          = var.instance_type
   key_name               = var.key_name
   monitoring             = true
   vpc_security_group_ids = [module.security_group.security_group_id]
