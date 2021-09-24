@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # MongoDB URI
-MONGO_URI="mongodb+srv//somecluster.abcdef.mongodb.net/sample"
+MONGO_URI=$( cd terraform/atlas && terraform output connection_string)
 
 # List of EC2 hosts
 declare -a hostList=$( cd terraform/aws && terraform output loadtest-demo_public_dns | sed -r 's/[][,]//g' )

@@ -34,7 +34,27 @@ resource "mongodbatlas_cluster" "loadtestDemo" {
   provider_region_name        = var.cluster_region
   }
 
+resource "random_string" "password" {
+  length           = 16
+  special          = false
+}
+
+resource "mongodbatlas_database_user" "demo-user" {
+  username           = "demo-user"
+  password           = random_string.password.result
+  project_id         = var.atlasprojectid
+  auth_database_name = "admin"
+
+  roles {
+    role_name     = "readWrite"
+    database_name = "sample"
+  }
+
+}
+
 # Use terraform output to display connection strings.
-output "connection_strings" {
-  value = ["${mongodbatlas_cluster.loadtestDemo.connection_strings}"]
+output "connection_string" {
+value = join("",[
+  replace("${mongodbatlas_cluster.loadtestDemo.connection_strings[0].standard_srv}", "mongodb+srv://", "mongodb+srv://demo-user:${random_string.password.result}@"),
+  "/sample"])
 }
