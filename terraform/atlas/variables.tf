@@ -52,3 +52,7 @@ variable "mongodb_atlas_database_user_password"{
 variable "num_shards"{
   description = "Number of shards"
 }
+
+variable "provider_disk_iops" {
+  description = "AWS only disk iops"
+}

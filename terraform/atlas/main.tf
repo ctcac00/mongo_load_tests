@@ -27,6 +27,7 @@ resource "mongodbatlas_cluster" "loadtestDemo" {
   cloud_backup      = false
   auto_scaling_disk_gb_enabled = var.auto_scaling_disk_gb_enabled
   mongo_db_major_version       = var.mongo_db_major_version
+  provider_disk_iops = var.provider_disk_iops
 
   # Provider settings
   provider_name               = var.atlas_provider_name
