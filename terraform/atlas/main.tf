@@ -51,6 +51,16 @@ resource "mongodbatlas_database_user" "demo-user" {
     database_name = "sample"
   }
 
+  roles {
+    role_name     = "readWrite"
+    database_name = "POCDB"
+  }
+
+    roles {
+    role_name     = "clusterMonitor"
+    database_name = "admin"
+  }
+
 }
 
 # Use terraform output to display connection strings.
